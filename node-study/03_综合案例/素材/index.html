@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background-image: linear-gradient(to bottom right, red, gold);
+      }
+
+      .box {
+        width: 400px;
+        height: 250px;
+        background-color: rgba(255, 255, 255, .6);
+        margin: 0 auto;
+        margin-top: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #HH,
+      #mm,
+      #ss {
+        font-size: 26px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box">
+      <div id="HH">00</div>
+      <div>:</div>
+      <div id="mm">00</div>
+      <div>:</div>
+      <div id="ss">00</div>
+    </div>
+
+
+    <script>
+      window.onload = function() {
+        // 定时器: 每隔一秒执行一次
+        setInterval(() => {
+          var dt = new Date();
+          var HH = dt.getHours();
+          var mm = dt.getMinutes();
+          var ss = dt.getSeconds();
+          // console.log(HH, mm, ss);
+          // 为页面上的元素赋值
+          const H = document.getElementById('HH');
+          const m = document.getElementById('mm');
+          const s = document.getElementById('ss');
+
+          HH = HH < 10 ? "0" + HH : HH;
+          mm = mm < 10 ? "0" + mm : mm;
+          ss = ss < 10 ? "0" + ss : ss;
+
+
+
+          H.innerText = HH;
+          m.innerText = mm;
+          s.innerText = ss;
+        }, 1000);
+      }
+    </script>
+  </body>
+
+</html>

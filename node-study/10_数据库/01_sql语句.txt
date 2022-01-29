@@ -1,0 +1,223 @@
+
+mysql> select username, password from users;
++----------+----------+
+| username | password |
++----------+----------+
+| 张三     | 123456   |
+| 李四     | abc123   |
+| 小红     | abcd     |
++----------+----------+
+3 rows in set
+
+mysql> insert into users (username, password) values (codexgh, codexgh);
+1054 - Unknown column 'codexgh' in 'field list'
+mysql> insert into users(username, password) values ('codexgh', '123456');
+Query OK, 1 row affected
+mysql> select * from user;
+1146 - Table 'my_db_01.user' doesn't exist
+mysql> select * from users
+;
++------+----------+----------+--------+
+| id   | username | password | status |
++------+----------+----------+--------+
+| 1901 | 张三     | 123456   |      0 |
+| 1902 | 李四     | abc123   |      0 |
+| 1903 | 小红     | abcd     |      0 |
+| 1904 | codexgh  | 123456   |      0 |
++------+----------+----------+--------+
+4 rows in set
+
+mysql> update users set password = '888888' where username = 'codexgh';
+Query OK, 1 row affected
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> select * from users;
++------+----------+----------+--------+
+| id   | username | password | status |
++------+----------+----------+--------+
+| 1901 | 张三     | 123456   |      0 |
+| 1902 | 李四     | abc123   |      0 |
+| 1903 | 小红     | abcd     |      0 |
+| 1904 | codexgh  | 888888   |      0 |
++------+----------+----------+--------+
+4 rows in set
+
+mysql> update users set password = '666666', status = 1 where username = 'codexgh';
+Query OK, 1 row affected
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> select * from users;
++------+----------+----------+--------+
+| id   | username | password | status |
++------+----------+----------+--------+
+| 1901 | 张三     | 123456   |      0 |
+| 1902 | 李四     | abc123   |      0 |
+| 1903 | 小红     | abcd     |      0 |
+| 1904 | codexgh  | 666666   |      1 |
++------+----------+----------+--------+
+4 rows in set
+
+mysql> delete from users where id = 1904;
+Query OK, 1 row affected
+mysql> select * from users;
++------+----------+----------+--------+
+| id   | username | password | status |
++------+----------+----------+--------+
+| 1901 | 张三     | 123456   |      0 |
+| 1902 | 李四     | abc123   |      0 |
+| 1903 | 小红     | abcd     |      0 |
++------+----------+----------+--------+
+3 rows in set
+
+mysql> select * from users where status=1;
+Empty set
+
+mysql> update users set status=1 where id=1903;
+Query OK, 1 row affected
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> select * from users where status=1;
++------+----------+----------+--------+
+| id   | username | password | status |
++------+----------+----------+--------+
+| 1903 | 小红     | abcd     |      1 |
++------+----------+----------+--------+
+1 row in set
+
+mysql> select * from users where id>1902;
++------+----------+----------+--------+
+| id   | username | password | status |
++------+----------+----------+--------+
+| 1903 | 小红     | abcd     |      1 |
++------+----------+----------+--------+
+1 row in set
+
+mysql> select * from users where id>1901;
++------+----------+----------+--------+
+| id   | username | password | status |
++------+----------+----------+--------+
+| 1902 | 李四     | abc123   |      0 |
+| 1903 | 小红     | abcd     |      1 |
++------+----------+----------+--------+
+2 rows in set
+
+mysql> select * from user where username <> 
+    -> 
+    -> 'admin'
+    -> ;
+1146 - Table 'my_db_01.user' doesn't exist
+mysql> select * from user where username <> 'admin';
+1146 - Table 'my_db_01.user' doesn't exist
+mysql> select * from users where username<>'admin';
++------+----------+----------+--------+
+| id   | username | password | status |
++------+----------+----------+--------+
+| 1901 | 张三     | 123456   |      0 |
+| 1902 | 李四     | abc123   |      0 |
+| 1903 | 小红     | abcd     |      1 |
++------+----------+----------+--------+
+3 rows in set
+
+mysql> select * from users where username!=
+'admin';
++------+----------+----------+--------+
+| id   | username | password | status |
++------+----------+----------+--------+
+| 1901 | 张三     | 123456   |      0 |
+| 1902 | 李四     | abc123   |      0 |
+| 1903 | 小红     | abcd     |      1 |
++------+----------+----------+--------+
+3 rows in set
+
+mysql> select * from users where id = 1901;
++------+----------+----------+--------+
+| id   | username | password | status |
++------+----------+----------+--------+
+| 1901 | 张三     | 123456   |      0 |
++------+----------+----------+--------+
+1 row in set
+
+mysql> select * from users where status=0 and id>1901;
++------+----------+----------+--------+
+| id   | username | password | status |
++------+----------+----------+--------+
+| 1902 | 李四     | abc123   |      0 |
++------+----------+----------+--------+
+1 row in set
+
+mysql> select * from users where status=0 and id>1900;
++------+----------+----------+--------+
+| id   | username | password | status |
++------+----------+----------+--------+
+| 1901 | 张三     | 123456   |      0 |
+| 1902 | 李四     | abc123   |      0 |
++------+----------+----------+--------+
+2 rows in set
+
+mysql> select * from users where status=1 or username='张三';
++------+----------+----------+--------+
+| id   | username | password | status |
++------+----------+----------+--------+
+| 1901 | 张三     | 123456   |      0 |
+| 1903 | 小红     | abcd     |      1 |
++------+----------+----------+--------+
+2 rows in set
+
+mysql> select * from users order by status;
++------+----------+----------+--------+
+| id   | username | password | status |
++------+----------+----------+--------+
+| 1901 | 张三     | 123456   |      0 |
+| 1902 | 李四     | abc123   |      0 |
+| 1903 | 小红     | abcd     |      1 |
++------+----------+----------+--------+
+3 rows in set
+
+mysql> select * from users order by id
+;
++------+----------+----------+--------+
+| id   | username | password | status |
++------+----------+----------+--------+
+| 1901 | 张三     | 123456   |      0 |
+| 1902 | 李四     | abc123   |      0 |
+| 1903 | 小红     | abcd     |      1 |
++------+----------+----------+--------+
+3 rows in set
+
+mysql> select * from users order esc id;
+1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'esc id' at line 1
+mysql> select * from users order by id desc
+;
++------+----------+----------+--------+
+| id   | username | password | status |
++------+----------+----------+--------+
+| 1903 | 小红     | abcd     |      1 |
+| 1902 | 李四     | abc123   |      0 |
+| 1901 | 张三     | 123456   |      0 |
++------+----------+----------+--------+
+3 rows in set
+
+mysql> select * from users order by status desc, username asc;
++------+----------+----------+--------+
+| id   | username | password | status |
++------+----------+----------+--------+
+| 1903 | 小红     | abcd     |      1 |
+| 1901 | 张三     | 123456   |      0 |
+| 1902 | 李四     | abc123   |      0 |
++------+----------+----------+--------+
+3 rows in set
+
+mysql> select count(*) from users;
++----------+
+| count(*) |
++----------+
+|        3 |
++----------+
+1 row in set
+
+mysql> select count(*) as total from users where status = 0;
++-------+
+| total |
++-------+
+|     2 |
++-------+
+1 row in set
+
+mysql> 
